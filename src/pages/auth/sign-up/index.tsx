@@ -1,21 +1,16 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { fbSignUp } from "../../../config/firebase/firebasemethods";
+import { fbSignUp } from "../../../config/firebase/firebase-methods";
 import InputField from "../../../components/input";
 import Button from "../../../components/button/primary-button";
 import DropDown from "../../../components/dropdown";
-import { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
-const Roles = [
-  { value: "admin", label: "Admin" },
-  { value: "institute", label: "Insitute" },
-  { value: "student", label: "Student" },
-];
+
+
 
 export default function Signup() {
   const [model, setModel] = useState<any>({});
-
   const fillModel = (key: string, val: any) => {
     model[key] = val;
     setModel({ ...model });
@@ -23,18 +18,23 @@ export default function Signup() {
 
   const navigate = useNavigate();
 
+  const Roles = [
+    { value: "admin", label: "Admin" },
+    { value: "institute", label: "Institute" },
+    { value: "student", label: "Student" },
+  ];
+
   let signUpUser = () => {
-    console.log(model);
+    console.log("Model role:", model.role);
     fbSignUp(model)
       .then((res: any) => {
-        if (res.role == "admin") {
+        if (model.role === "admin") {
           navigate("/admin-dashboard");
-        }if (res.role == "institute") {
+        } else if (model.role === "institute") {
           navigate("/institute-dashboard");
-        }if (res.role == "student") {
+        } else if (model.role === "student") {
           navigate("/student-dashboard");
-        }
-        else {
+        } else {
           navigate("/*");
         }
       })
@@ -80,7 +80,7 @@ export default function Signup() {
           </div>
           <div className="py-3">
             <DropDown
-              SelectValue={model.role || ""}
+              SelectValue={model.role}
               SelectOnChange={(e: any) => fillModel("role", e.target.value)}
             >
               {Roles.map((option) => (

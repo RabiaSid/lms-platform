@@ -6,7 +6,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { getDatabase, ref, set, onValue, push } from "firebase/database";
-import { app } from "./firebaseconfig";
+import { app } from "../firebase-config";
 
 let auth = getAuth(app);
 let db = getDatabase(app);
