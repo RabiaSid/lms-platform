@@ -1,9 +1,10 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
 import DashboardLayout from "../../../components/layout/dashboard-layout";
 import { useSelector, useDispatch } from "react-redux";
-import Institude from "../institude";
-import InstitudeForm from "../institude-form";
 import UserRegistration from "../user-registration";
+import NotFound from "../../not-found";
+import Institute from "../institute";
+import InstituteForm from "../institute-form";
 
 type Page = {
   name: string;
@@ -13,14 +14,14 @@ type Page = {
 
 const pagesArr: Page[] = [
   {
-    name: "Institude",
-    // route: "institude",
+    name: "Institute",
+    // route: "institute",
     route: "",
     // icon: <TiHomeOutline />,
   },
   {
-    name: "Institude Form",
-    route: "institude-form",
+    name: "Institute Form",
+    route: "institute-form",
     // icon: <BsListColumnsReverse />,
   },
   {
@@ -39,9 +40,10 @@ export default function AdminDashboard() {
     <DashboardLayout
       RouteContent={
         <Routes>
-          <Route path="" element={<Institude />} />
-          <Route path="institude-form" element={<InstitudeForm />} />
+          <Route path="" element={<Institute />} />
+          <Route path="institute-form" element={<InstituteForm />} />
           <Route path="user-registration" element={<UserRegistration />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       }
       userName={userData.userName}

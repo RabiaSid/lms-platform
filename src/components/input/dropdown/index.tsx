@@ -4,13 +4,14 @@ import Select from "@mui/material/Select";
 
 type propsInputSelect = {
   SelectValue?: string;
+  HeaderValue?: string;
   name?: string;
   SelectOnChange?: (...args: any[]) => any;
   children: ReactNode;
 };
 
 export default function InputSelect(props: propsInputSelect) {
-  const { name, SelectValue, SelectOnChange, children } = props;
+  const { name, SelectValue, HeaderValue, SelectOnChange, children } = props;
 
   return (
     <>
@@ -49,7 +50,7 @@ export default function InputSelect(props: propsInputSelect) {
               fontStyle: "normal",
             }}
           >
-            Role
+            {HeaderValue}
           </em>
         </MenuItem>
         {children}

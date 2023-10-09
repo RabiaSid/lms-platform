@@ -1,13 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { fbSignUp } from "../../../config/firebase/firebase-methods";
-import InputField from "../../../components/input";
+import InputField from "../../../components/input/input-field";
 import Button from "../../../components/button/primary-button";
-import DropDown from "../../../components/dropdown";
+import DropDown from "../../../components/input/dropdown";
 import MenuItem from "@mui/material/MenuItem";
-
-
-
 
 export default function Signup() {
   const [model, setModel] = useState<any>({});
@@ -80,6 +77,7 @@ export default function Signup() {
           </div>
           <div className="py-3">
             <DropDown
+              HeaderValue="Role"
               SelectValue={model.role}
               SelectOnChange={(e: any) => fillModel("role", e.target.value)}
             >

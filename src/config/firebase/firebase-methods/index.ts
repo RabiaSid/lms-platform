@@ -105,7 +105,31 @@ export let fbGet = (nodeName: string, id?: string) => {
     });
   });
 };
+export let addUser = (body: any) => {
+  return new Promise((resolve, reject) => {
+    if (!body.email || !body.password) {
+      reject("Email and Password is Required");
+    } else {
+      signInWithEmailAndPassword(auth, body.email, body.password)
+        .then((res) => {
+          let id = res.user.uid;
 
+          const referece = ref(db, `users/${id}`);
+
+          onValue(referece, (data) => {
+            if (data.exists()) {
+              resolve(data.val());
+            } else {
+              reject("No Data Found");
+            }
+          });
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    }
+  });
+};
 export let fbSignout = () => {
   return signOut(auth);
 };

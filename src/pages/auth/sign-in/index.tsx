@@ -2,18 +2,14 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { add } from "../../../config/redux/reducers/userSlice";
-import InputField from "../../../components/input";
+import InputField from "../../../components/input/input-field";
 import Button from "../../../components/button/primary-button";
 import { fbLogin } from "../../../config/firebase/firebase-methods";
 
 export default function SignIn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [model, setModel] = useState<any>({
-    email: "",
-    password: "",
-    // role:""
-  });
+  const [model, setModel] = useState<any>({});
 
   const fillModel = (key: string, val: any) => {
     model[key] = val;
@@ -61,14 +57,14 @@ export default function SignIn() {
 
           <div className="py-3">
             <InputField
-              value={model.email}
+              value={model.email || ""}
               onChange={(e: any) => fillModel("email", e.target.value)}
               label="Email"
             />
           </div>
           <div className="py-3">
             <InputField
-              value={model.password}
+              value={model.password || ""}
               onChange={(e: any) => fillModel("password", e.target.value)}
               label="Password"
             />

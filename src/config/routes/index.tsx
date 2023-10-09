@@ -2,9 +2,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Signup from "../../pages/auth/sign-up";
 import SignIn from "../../pages/auth/sign-in";
 import AdminDashboard from "../../pages/admin/dashboard";
-import InstituteDashboard from "../../pages/institude/dashboard";
 import StudentDashboard from "../../pages/student/dashboard";
 import NotFound from "../../pages/not-found";
+import InstituteDashboard from "../../pages/institude/dashboard";
 
 export default function AppRouter() {
   return (

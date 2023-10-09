@@ -32,7 +32,7 @@ export default function DashboardLayout(props: DashboardLayoutProps) {
           <img src={profile} style={{ width: "3rem" }} className="rounded-full mx-5" />
         </div>
       </div>
-      <div className="grid grid-cols-6 h-[92%]">
+      <div className="grid grid-cols-7 md:grid-cols-5 h-[92%]">
         <div className="grid grid-rows-5 grid-flow-col bg-[#000000] p-5">
           <div className="row-span-4  h-[95%] justify-start">
             {children}
@@ -41,7 +41,7 @@ export default function DashboardLayout(props: DashboardLayoutProps) {
             <Button label="Sign out" onClick={SignOut} />
           </div>
         </div>
-        <div className="grid grid-cols-11 sm:grid-cols-9 mds:grid-cols-8 bg-[#ffffff]">
+        <div className="col-span-6 md:col-span-4 bg-[#ffffff]">
           <div className="grid grid-cols-1 p-5">{RouteContent}</div>
         </div>
       </div>
