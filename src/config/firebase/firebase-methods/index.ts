@@ -106,7 +106,7 @@ export let fbGet = (nodeName: string, id?: string) => {
   });
 };
 
-export let fblogout = () => {
+export let fbSignout = () => {
   return signOut(auth);
 };
 

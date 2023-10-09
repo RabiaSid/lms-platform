@@ -14,9 +14,9 @@ export default function AppRouter() {
           <Route path="/" element={<Signup />} />
           <Route path="sign-up" element={<Signup />} />
           <Route path="sign-in" element={<SignIn />} />
-          <Route path="admin-dashboard" element={<AdminDashboard />} />
-          <Route path="institute-dashboard" element={<InstituteDashboard />} />
-          <Route path="student-dashboard" element={<StudentDashboard />} />
+          <Route path="admin-dashboard/*" element={<AdminDashboard />} />
+          <Route path="institute-dashboard/*" element={<InstituteDashboard />} />
+          <Route path="student-dashboard/*" element={<StudentDashboard />} />
           <Route path="*" element={< NotFound />} />
         </Routes>
       </Router>

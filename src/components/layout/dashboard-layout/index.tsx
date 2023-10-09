@@ -1,14 +1,25 @@
 import { ReactNode } from "react";
 import { profile } from "../../../assets";
 import Button from "../../button/primary-button";
+import { fbSignout } from "../../../config/firebase/firebase-methods";
+import { useNavigate } from "react-router-dom";
 
 type DashboardLayoutProps = {
   userName?: string;
   children: ReactNode;
+  RouteContent: ReactNode;
 };
 
+
 export default function DashboardLayout(props: DashboardLayoutProps) {
-  const { userName, children } = props;
+  const navigate = useNavigate();
+  const { userName, children, RouteContent } = props;
+
+  const SignOut = () => {
+    fbSignout().then(() => {
+      navigate("/sign-in");
+    });
+  };
 
   return (
     <div className="grid-cols-1 h-screen">
@@ -18,7 +29,7 @@ export default function DashboardLayout(props: DashboardLayoutProps) {
         </div>
         <div className="grid grid-cols-2 border justify-self-end text-right">
           <h3 className="text-white py-3 px-5">{userName}</h3>
-          <img src={profile} style={{ width: "3rem" }} className="rounded-full ms-5" />
+          <img src={profile} style={{ width: "3rem" }} className="rounded-full mx-5" />
         </div>
       </div>
       <div className="grid grid-cols-6 h-[92%]">
@@ -27,11 +38,11 @@ export default function DashboardLayout(props: DashboardLayoutProps) {
             {children}
           </div>
           <div className="row-span-1 h-[5%] items-end  justify-end ">
-            <Button label="Sign out" />
+            <Button label="Sign out" onClick={SignOut} />
           </div>
         </div>
         <div className="grid grid-cols-11 sm:grid-cols-9 mds:grid-cols-8 bg-[#ffffff]">
-          <div className="grid grid-cols-1 p-5"></div>
+          <div className="grid grid-cols-1 p-5">{RouteContent}</div>
         </div>
       </div>
     </div>
