@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import RegistrationForm from "../registration-form";
 import Result from "../result";
 import Login from "../login";
+import NotFound from "../../not-found";
+import Quiz from "../quiz";
 
 type Page = {
   name: string;
@@ -14,13 +16,15 @@ type Page = {
 const pagesArr: Page[] = [
   {
     name: "Registration Form",
-    route: "registration-form",
-    // icon: <TiHomeOutline />,
+    route: "",
   },
   {
     name: "Result",
     route: "result",
-    // icon: <BsListColumnsReverse />,
+  },
+  {
+    name: "Quiz",
+    route: "quiz",
   },
   // {
   //   name: "Login",
@@ -40,7 +44,9 @@ export default function StudentDashboard() {
         <Routes>
           <Route path="" element={<RegistrationForm />} />
           <Route path="result" element={<Result />} />
+          <Route path="quiz" element={<Quiz />} />
           {/* <Route path="login" element={<Login />} /> */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       }
       userName={userData.userName}
@@ -48,10 +54,15 @@ export default function StudentDashboard() {
       {pagesArr.map((x, index) => (
         <div
           key={index}
-          className="text-white w-full h-[6vh] rounded flex items-center justify-center border my-2"
-          onClick={() => navigate(x.route)}
+          className="flex items-center justify-center my-2 p-[0.8px] rounded bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% hoverborder "
         >
-          <h1 className="text-base">{x.name}</h1>
+          <div
+            key={index}
+            className="text-white w-full h-[6vh] rounded bg-[#000000] flex items-center justify-center "
+            onClick={() => navigate(x.route)}
+          >
+            <h1 className="text-base">{x.name}</h1>
+          </div>
         </div>
       ))}
     </DashboardLayout>

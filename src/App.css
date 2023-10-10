@@ -1,4 +1,16 @@
 * {
   /* background: #eceff6; */
 }
+.hoverborder:hover{
+  background: #155375;
+  /* background: rgb(21, 83, 117, 0.8); */
+  cursor:pointer;
+}
+.hoverborder:hover .hoverborder2{
+  /* background: #155375; */
+  /* background: #155375 !important; */
+  background: var(--transparency-success, rgba(21, 83, 117, 0.15)) !important;
+  color: #00B074 !important
+}
+
 

@@ -2,6 +2,9 @@ import React from "react";
 import { NotFoundImage } from "../../assets";
 import Button from "../../components/button/primary-button";
 export default function NotFound() {
+  const Back = () => {
+    window.history.back();
+  };
   return (
     <div className="grid-cols-1 h-[80vh] flex items-center justify-center">
       <div className="grid grid-span-1 flex items-center justify-center text-center  gap-4 h-[65%]">
@@ -16,7 +19,7 @@ export default function NotFound() {
         <div>
           <h1>Sorry! this page was not found</h1>
         </div>
-        <Button label="Back"/>
+        <Button label="Back" onClick={Back} />
       </div>
     </div>
   );

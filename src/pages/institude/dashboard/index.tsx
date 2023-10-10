@@ -10,6 +10,7 @@ import StudentDetail from "../student-detail";
 import StudentForm from "../student-form";
 import Quiz from "../quiz";
 import AddQuiz from "../add-quiz";
+import NotFound from "../../not-found";
 
 type Page = {
   name: string;
@@ -20,7 +21,7 @@ type Page = {
 const pagesArr: Page[] = [
   {
     name: "Course List",
-    route: "course-list",
+    route: "",
     // icon: <TiHomeOutline />,
   },
   {
@@ -86,18 +87,24 @@ export default function InstituteDashboard() {
           <Route path="student-form" element={<StudentForm />} />
           <Route path="quiz" element={<Quiz />} />
           <Route path="add-quiz" element={<AddQuiz />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       }
       userName={userData.userName}
     >
       {pagesArr.map((x, index) => (
         <div
+        key={index}
+        className="flex items-center justify-center my-2 p-[0.8px] rounded bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% hoverborder "
+      >
+        <div
           key={index}
-          className="text-white w-full h-[6vh] rounded flex items-center justify-center border my-2"
+          className="text-white w-full h-[6vh] rounded bg-[#000000] flex items-center justify-center "
           onClick={() => navigate(x.route)}
         >
           <h1 className="text-base">{x.name}</h1>
         </div>
+      </div>
       ))}
     </DashboardLayout>
   );

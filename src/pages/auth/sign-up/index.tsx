@@ -18,6 +18,7 @@ export default function Signup() {
   const Roles = [
     { value: "admin", label: "Admin" },
     { value: "institute", label: "Institute" },
+    { value: "teacher", label: "Teacher" },
     { value: "student", label: "Student" },
   ];
 
@@ -28,6 +29,8 @@ export default function Signup() {
         if (model.role === "admin") {
           navigate("/admin-dashboard");
         } else if (model.role === "institute") {
+          navigate("/institute-dashboard");
+        }else if (model.role === "teacher") {
           navigate("/institute-dashboard");
         } else if (model.role === "student") {
           navigate("/student-dashboard");
@@ -56,16 +59,16 @@ export default function Signup() {
           </div>
           <div className="py-3">
             <InputField
-              value={model.fullname || ""}
-              onChange={(e: any) => fillModel("fullname", e.target.value)}
-              label="Full Name"
+              value={model.email || ""}
+              onChange={(e: any) => fillModel("email", e.target.value)}
+              label="Email"
             />
           </div>
           <div className="py-3">
             <InputField
-              value={model.email || ""}
-              onChange={(e: any) => fillModel("email", e.target.value)}
-              label="Email"
+              value={model.cnic || ""}
+              onChange={(e: any) => fillModel("cnic", e.target.value)}
+              label="Cnic"
             />
           </div>
           <div className="py-3">

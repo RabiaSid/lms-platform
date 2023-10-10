@@ -7,6 +7,13 @@ type FileUploadProps = {
 
 export default function FileUpload(props: FileUploadProps) {
   const { onChange, value } = props;
+
+  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0];
+  //   if (file && onChange) {
+  //     onChange(file); // Pass the selected file to the parent component
+  //   }
+  // };
   return (
     <div className="flex items-center justify-center w-full">
       <label
@@ -31,6 +38,8 @@ export default function FileUpload(props: FileUploadProps) {
           type="file"
           className="hidden"
           accept=".svg, .png, .jpg, .jpeg, .gif"
+          onChange={onChange}
+          value={value}
         />
       </label>
     </div>

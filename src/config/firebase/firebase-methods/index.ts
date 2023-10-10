@@ -105,7 +105,7 @@ export let fbGet = (nodeName: string, id?: string) => {
     });
   });
 };
-export let addUser = (body: any) => {
+export let fbAddUser = (body: any) => {
   return new Promise((resolve, reject) => {
     if (!body.email || !body.password) {
       reject("Email and Password is Required");

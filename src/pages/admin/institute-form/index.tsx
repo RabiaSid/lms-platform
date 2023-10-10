@@ -38,7 +38,7 @@ export default function InstituteForm() {
     setCampusDetailModel([])
     setCampusModel({})
     console.log(institutemodel);
-    fbAdd("institute", institutemodel)
+    fbAdd("instituteList", institutemodel)
       .then((res: any) => {
         console.log(res);
         setInstituteModel({
@@ -50,7 +50,7 @@ export default function InstituteForm() {
       });
   };
 
-
+  
 
 
 
@@ -94,7 +94,7 @@ export default function InstituteForm() {
         </div>
       </div>
 
-      <div className="grid col-span-2  md:grid-cols-3  border flex items-center justify-center  gap-2 py-5">
+      <div className="grid col-span-2  md:grid-cols-3 flex items-center justify-center  gap-2 py-5">
         <InputField
           value={campusModel.location || ""}
           onChange={(e: any) => fillCampusModel("location", e.target.value)}

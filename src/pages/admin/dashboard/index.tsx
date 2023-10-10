@@ -15,7 +15,6 @@ type Page = {
 const pagesArr: Page[] = [
   {
     name: "Institute",
-    // route: "institute",
     route: "",
     // icon: <TiHomeOutline />,
   },
@@ -51,10 +50,15 @@ export default function AdminDashboard() {
       {pagesArr.map((x, index) => (
         <div
           key={index}
-          className="text-white w-full h-[6vh] rounded flex items-center justify-center border my-2"
-          onClick={() => navigate(x.route)}
+          className="flex items-center justify-center my-2 p-[0.8px] rounded bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% hoverborder "
         >
-          <h1 className="text-base">{x.name}</h1>
+          <div
+            key={index}
+            className="text-white w-full h-[6vh] rounded bg-[#000000] flex items-center justify-center "
+            onClick={() => navigate(x.route)}
+          >
+            <h1 className="text-base">{x.name}</h1>
+          </div>
         </div>
       ))}
     </DashboardLayout>
