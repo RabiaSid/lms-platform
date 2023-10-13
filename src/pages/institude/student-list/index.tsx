@@ -66,7 +66,7 @@ export default function StudentList() {
                 column2={student.studentName}
                 column3={student.fatherName}
                 column4={student.cource}
-                column5={() => clickCard(student.id)}
+                onClick={() => clickCard(student.id)}
               />
             ))
           : null}

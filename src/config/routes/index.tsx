@@ -11,8 +11,8 @@ export default function AppRouter() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Signup />} />
-          <Route path="sign-up" element={<Signup />} />
+          <Route path="/" element={<SignIn />} />
+          {/* <Route path="sign-up" element={<Signup />} /> */}
           <Route path="sign-in" element={<SignIn />} />
           <Route path="admin-dashboard/*" element={<AdminDashboard />} />
           <Route path="institute-dashboard/*" element={<InstituteDashboard />} />
