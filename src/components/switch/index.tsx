@@ -4,13 +4,14 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 
 type SwitchProps = {
+  value?: string | number;
   label: string | number;
   onChange?: (...args: any[]) => any;
   checked?: any;
 };
 
 export default function SwitchLabels(props: SwitchProps) {
-  const { label, checked, onChange } = props;
+  const { value, label, checked, onChange } = props;
 //   const [checked, setChecked] = useState(false);
 
 //   const handleChange = () => {
@@ -22,6 +23,7 @@ export default function SwitchLabels(props: SwitchProps) {
       <FormControlLabel
         control={<Switch checked={checked} onChange={onChange} />}
         label={label}
+        value={value}
       />
     </FormGroup>
   );

@@ -1,45 +1,43 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import InputField from "../../../components/input/input-field";
+import Button from "../../../components/button/primary-button";
 import DropDown from "../../../components/input/dropdown";
 import MenuItem from "@mui/material/MenuItem";
-import FileUpload from "../../../components/input/file-input";
-import Button from "../../../components/button/primary-button";
-import { fbAdd } from "../../../config/firebase/firebase-methods";
+import { fbAdd, fbGet } from "../../../config/firebase/firebase-methods";
+import DatePickerValue from "../../../components/date-picker";
+import SwitchLabels from "../../../components/switch";
 
-export default function RegistrationForm() {
-  const [institutemodel, setInstituteModel] = useState<any>({});
-  const [campusModel, setCampusModel] = useState<any>({});
-  const [campusDetailModel, setCampusDetailModel] = useState<any>([]);
+export default function StudentForm() {
+  const [model, setModel] = useState<any>({});
+  const [maleChecked, setMaleChecked] = useState(false);
+  const [femaleChecked, setFemaleChecked] = useState(false);
+  const [courseList, setCourseList] = useState<any>([]);
 
-  const fillinstituteModel = (key: string, val: any) => {
-    institutemodel[key] = val;
-    setInstituteModel({ ...institutemodel });
+  const handleMaleChange = () => {
+    setMaleChecked(!maleChecked);
+    setFemaleChecked(false);
+    // (e: any) => fillModel("genderMale", e.target.value)
   };
 
-  const fillCampusModel = (key: string, val: any) => {
-    campusModel[key] = val;
-    setCampusModel({ ...campusModel });
+  const handleFemaleChange = () => {
+    setFemaleChecked(!femaleChecked);
+    setMaleChecked(false);
+    // (e: any) => fillModel("gender", e.target.value)
   };
 
-  const Types = [
-    { value: "school", label: "School" },
-    { value: "college", label: "College" },
-    { value: "university", label: "University" },
-    { value: "institute", label: "Institute" },
-  ];
+  const fillModel = (key: string, val: any) => {
+    model[key] = val;
+    setModel({ ...model });
+  };
 
-  const AddInstitute = () => {
-    institutemodel.campusModel = { ...campusModel };
-    campusDetailModel.push(campusModel);
-    setCampusDetailModel([...campusDetailModel]);
-    setCampusDetailModel([]);
-    setCampusModel({});
-    console.log(institutemodel);
-    fbAdd("instituteList", institutemodel)
+  let StudentAdd = () => {
+    setModel({});
+    console.log(model);
+    fbAdd("studentList", model)
       .then((res: any) => {
         console.log(res);
-        setInstituteModel({
-          ...setInstituteModel,
+        setModel({
+          ...setModel,
         });
       })
       .catch((err) => {
@@ -47,83 +45,219 @@ export default function RegistrationForm() {
       });
   };
 
+  const GetcourseList = () => {
+    fbGet("courseList")
+      .then((res: any) => {
+        console.log("Fetched User Data:", { ...res });
+        setCourseList([...res]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    GetcourseList();
+  }, []);
+
+  const Qualfication = [
+    { value: "matric", label: "Matric" },
+    { value: "Intermediate", label: "Intermediate" },
+    { value: "bachelor", label: "Bachelor" },
+    { value: "master", label: "Master" },
+    { value: "mphil", label: "Mphil" },
+  ];
+
+  // const Cource = [
+  //   { value: "school", label: "School" },
+  //   { value: "college", label: "College" },
+  //   { value: "university", label: "University" },
+  //   { value: "institute", label: "Institute" },
+  // ];
+
+  const Section = [
+    { value: "a", label: "A" },
+    { value: "b", label: "B" },
+    { value: "c", label: "C" },
+    { value: "d", label: "D" },
+  ];
+
+  const City = [
+    { value: "islamabad", label: "Islamabad" },
+    { value: "newyork", label: "New York" },
+    { value: "losangeles", label: "Los Angeles" },
+    { value: "chicago", label: "Chicago" },
+    { value: "miami", label: "Miami" },
+    { value: "houston", label: "Houston" },
+    { value: "san-francisco", label: "San Francisco" },
+    { value: "seattle", label: "Seattle" },
+  ];
+
+  const Country = [
+    { value: "pakistan", label: "Pakistan" },
+    { value: "usa", label: "United States" },
+    { value: "canada", label: "Canada" },
+    { value: "uk", label: "United Kingdom" },
+    { value: "australia", label: "Australia" },
+    { value: "germany", label: "Germany" },
+    { value: "france", label: "France" },
+    { value: "japan", label: "Japan" },
+    { value: "china", label: "China" },
+    { value: "brazil", label: "Brazil" },
+  ];
+
   return (
     <>
-      <div className="grid grid-cols-1 lg:grid-cols-6 gap-4 py-5">
-        <div className="col-span-1 lg:col-span-3 ">
-          <FileUpload
-            value={institutemodel.instituteLogo || ""}
-            onChange={(e: any) =>
-              fillinstituteModel("instituteLogo", e.target.value)
+      <div className="grid grid-cols-1 gap-4 py-5">
+        <div className="grid col-span-1  md:grid-cols-4  flex items-end justify-center  gap-2 ">
+          <InputField
+            value={model.studentName || ""}
+            onChange={(e: any) => fillModel("studentName", e.target.value)}
+            label="StudentName"
+          />
+
+          <InputField
+            value={model.fatherName || ""}
+            onChange={(e: any) => fillModel("fatherName", e.target.value)}
+            label="Father Name"
+          />
+
+          <InputField
+            value={model.contact || ""}
+            onChange={(e: any) => fillModel("contact", e.target.value)}
+            label="Contact"
+          />
+
+          <InputField
+            value={model.cnic || ""}
+            onChange={(e: any) => fillModel("cnic", e.target.value)}
+            label="Cnic"
+          />
+
+          <DropDown
+            HeaderValue="Last Qualfication"
+            SelectValue={model.lastQualfication || ""}
+            SelectOnChange={(e: any) =>
+              fillModel("lastQualfication", e.target.value)
             }
+          >
+            {Qualfication.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </DropDown>
+
+          <DropDown
+            HeaderValue="Cource"
+            SelectValue={model.cource || ""}
+            SelectOnChange={(e: any) => fillModel("cource", e.target.value)}
+          >
+            {courseList && courseList.length > 0
+              ? courseList.map((course: any, i: number) => (
+                  <MenuItem key={i} value={course.courseName}>
+                    {course.courseName}
+                  </MenuItem>
+                ))
+              : null}
+          </DropDown>
+
+          {/* <DropDown
+            HeaderValue="Cource"
+            SelectValue={model.cource || ""}
+            SelectOnChange={(e: any) => fillModel("cource", e.target.value)}
+          >
+            {Cource.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </DropDown> */}
+
+          <InputField
+            value={model.Institute || ""}
+            onChange={(e: any) => fillModel("institute", e.target.value)}
+            label="institute"
+            disabled={true}
+          />
+
+          <DropDown
+            HeaderValue="Section"
+            SelectValue={model.section || ""}
+            SelectOnChange={(e: any) => fillModel("section", e.target.value)}
+          >
+            {Section.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </DropDown>
+
+          <InputField
+            value={model.email || ""}
+            onChange={(e: any) => fillModel("email", e.target.value)}
+            label="Email"
+          />
+
+          <InputField
+            value={model.password || ""}
+            onChange={(e: any) => fillModel("password", e.target.value)}
+            label="Password"
+          />
+
+          <DropDown
+            HeaderValue="City"
+            SelectValue={model.city || ""}
+            SelectOnChange={(e: any) => fillModel("city", e.target.value)}
+          >
+            {City.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </DropDown>
+
+          <DropDown
+            HeaderValue="Country"
+            SelectValue={model.country || ""}
+            SelectOnChange={(e: any) => fillModel("country", e.target.value)}
+          >
+            {Country.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </DropDown>
+
+          <InputField
+            value={model.address || ""}
+            onChange={(e: any) => fillModel("address", e.target.value)}
+            label="Address"
           />
         </div>
-
-        <div className="col-span-1 lg:col-span-3  flex flex-col justify-between">
-          <InputField
-            value={institutemodel.instituteName || ""}
-            onChange={(e: any) =>
-              fillinstituteModel("instituteName", e.target.value)
-            }
-            label="Institute Name"
-          />
-          <InputField
-            value={institutemodel.instituteShortName || ""}
-            onChange={(e: any) =>
-              fillinstituteModel("instituteShortName", e.target.value)
-            }
-            label="Institute Short Name"
-          />
-          <InputField
-            value={institutemodel.numberOfCampus || ""}
-            onChange={(e: any) =>
-              fillinstituteModel("numberOfCampus", e.target.value)
-            }
-            label="Number Of Campus"
-          />
+        <div className="grid col-span-1  md:grid-cols-4 flex items-center justify-center  gap-2 ">
+          <div className="grid col-span-1">
+            <SwitchLabels
+              label="male"
+              checked={maleChecked}
+              onChange={handleMaleChange}
+              // value={model.genter || ""}
+            />
+            <SwitchLabels
+              label="female"
+              checked={femaleChecked}
+              onChange={handleFemaleChange}
+              // value={model.gender || ""}
+            />
+          </div>
         </div>
-      </div>
+        <div className="grid col-span-1  md:grid-cols-4 flex items-center justify-center  gap-2 ">
+          <DatePickerValue label="Date Of Birth" />
+        </div>
 
-      <div className="grid col-span-2  md:grid-cols-3 flex items-center justify-center  gap-2 py-5">
-        <InputField
-          value={campusModel.location || ""}
-          onChange={(e: any) => fillCampusModel("location", e.target.value)}
-          label="Location"
-        />
-        <InputField
-          value={campusModel.address || ""}
-          onChange={(e: any) => fillCampusModel("address", e.target.value)}
-          label="Address"
-        />
-        <InputField
-          value={campusModel.contact || ""}
-          onChange={(e: any) => fillCampusModel("contact", e.target.value)}
-          label="Contact"
-        />
-        <InputField
-          value={campusModel.ownerEmail || ""}
-          onChange={(e: any) => fillCampusModel("ownerEmail", e.target.value)}
-          label="Owner Email"
-        />
-        <InputField
-          value={campusModel.ownerContact || ""}
-          onChange={(e: any) => fillCampusModel("ownerContact", e.target.value)}
-          label="Owner Contact"
-        />
-        <DropDown
-          HeaderValue="Type"
-          SelectValue={institutemodel.instituteType || ""}
-          SelectOnChange={(e: any) =>
-            fillinstituteModel("instituteType", e.target.value)
-          }
-        >
-          {Types.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </DropDown>
-        <Button label="Add Institute " onClick={AddInstitute} />
+        <div className="grid col-span-1  md:grid-cols-4 flex items-center justify-center  gap-2 ">
+          <Button label="course Add" onClick={StudentAdd} />
+        </div>
       </div>
     </>
   );

@@ -200,16 +200,7 @@ export default function AddQuiz() {
                           ))
                         : null}
                     </div>
-                    <div className="grid grid-cols-10">
-                      <div className="me-3">
-                        <CiEdit size={25} color="green" />
-                        {/* <Button label="Edit" /> */}
-                      </div>
-                      <div>
-                        <MdOutlineDeleteSweep size={25} color="red" />
-                        {/* <Button label="Delete" /> */}
-                      </div>
-                    </div>
+                    
                   </div>
                 </div>
               ))

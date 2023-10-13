@@ -15,43 +15,81 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
-    backgroundColor: "#fef8ef",
+    backgroundColor: "rgba(156, 172, 203, 0.2)",
   },
-  // hide last border
+  "&:nth-of-type(even)": {
+    backgroundColor: "#ffffff",
+  },
+  // hcolumn1e last border
   "&:last-child td, &:last-child th": {
     border: 0,
   },
+  spacing: 8,
 }));
 
 type tableRowProps = {
-    key: any;
-  instituteId: number | string;
-  instituteName: string;
-  instituteLogo: any;
-  instituteNumber: string;
-  instituteActive: any;
+  key: any;
+  column1?: any;
+  column2?: any;
+  column3?: any;
+  column4?: any;
+  column5?: any;
+  column6?: any;
+  column7?: any;
+  onClick?: (...args: any[]) => any;
 };
 
 export default function CustomTableRow(props: tableRowProps) {
-  const { key, instituteId, instituteName, instituteLogo, instituteNumber, instituteActive } = props;
+  const {
+    key,
+    column1,
+    column2,
+    column3,
+    column4,
+    column5,
+    column6,
+    column7,
+    onClick,
+  } = props;
   return (
     <>
-      <StyledTableRow key={key}>
-        <StyledTableCell sx={{ height: "8vh", paddingY: 1 }} align="left">
-          {instituteId}
-        </StyledTableCell>
-        <StyledTableCell sx={{ height: "8vh", paddingY: 1 }} align="left">
-          {instituteLogo}
-        </StyledTableCell>
-        <StyledTableCell sx={{ height: "8vh", paddingY: 1 }} align="left">
-          {instituteName}
-        </StyledTableCell>
-        <StyledTableCell sx={{ height: "8vh", paddingY: 1 }} align="left">
-          {instituteNumber}
-        </StyledTableCell>
-        <StyledTableCell sx={{ height: "8vh", paddingY: 1 }} align="left">
-          {instituteActive}
-        </StyledTableCell>
+      <StyledTableRow key={key} onClick={onClick}>
+        {column1 !== undefined && (
+          <StyledTableCell sx={{ height: "8vh", paddingY: 1 }} align="left">
+            {column1}
+          </StyledTableCell>
+        )}
+        {column2 !== undefined && (
+          <StyledTableCell sx={{ height: "8vh", paddingY: 1 }} align="left">
+            {column2}
+          </StyledTableCell>
+        )}
+        {column3 !== undefined && (
+          <StyledTableCell sx={{ height: "8vh", paddingY: 1 }} align="left">
+            {column3}
+          </StyledTableCell>
+        )}
+        {column4 !== undefined && (
+          <StyledTableCell sx={{ height: "8vh", paddingY: 1 }} align="left">
+            {column4}
+          </StyledTableCell>
+        )}
+        {column5 !== undefined && (
+          <StyledTableCell sx={{ height: "8vh", paddingY: 1 }} align="left">
+            {column5}
+          </StyledTableCell>
+        )}
+
+        {column6 !== undefined && (
+          <StyledTableCell sx={{ height: "8vh", paddingY: 1 }} align="left">
+            {column6}
+          </StyledTableCell>
+        )}
+        {column7 !== undefined && (
+          <StyledTableCell sx={{ height: "8vh", paddingY: 1 }} align="left">
+            {column7}
+          </StyledTableCell>
+        )}
       </StyledTableRow>
     </>
   );

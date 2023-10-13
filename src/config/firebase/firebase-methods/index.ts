@@ -92,7 +92,7 @@ export let fbAdd = (nodeName: string, body: any, id?: string) => {
       });
   });
 };
-export let fbGet = (nodeName: string, id?: string) => {
+export let fbGet = (nodeName: string, id?: any) => {
   return new Promise((resolve, reject) => {
     const referece = ref(db, `${nodeName}/${id ? id : ""}`);
 
@@ -137,4 +137,6 @@ export let fbSignout = () => {
 export let fbDelete = () => {};
 export let fbEdit = () => {};
 export let fbGetById = () => {};
+
+
 

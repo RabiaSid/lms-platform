@@ -19,11 +19,6 @@ const pagesArr: Page[] = [
     // icon: <TiHomeOutline />,
   },
   {
-    name: "Institute Form",
-    route: "institute-form",
-    // icon: <BsListColumnsReverse />,
-  },
-  {
     name: "User Registration",
     route: "user-registration",
     // icon: <BsPeople />,
@@ -40,7 +35,6 @@ export default function AdminDashboard() {
       RouteContent={
         <Routes>
           <Route path="" element={<Institute />} />
-          <Route path="institute-form" element={<InstituteForm />} />
           <Route path="user-registration" element={<UserRegistration />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

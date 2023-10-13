@@ -25,11 +25,6 @@ const pagesArr: Page[] = [
     // icon: <TiHomeOutline />,
   },
   {
-    name: "Course Form",
-    route: "course-form",
-    // icon: <BsListColumnsReverse />,
-  },
-  {
     name: "Registration Control",
     route: "registration-control",
     // icon: <BsPeople />,
@@ -42,16 +37,6 @@ const pagesArr: Page[] = [
   {
     name: "Student List",
     route: "student-list",
-    // icon: <BiPencil />,
-  },
-  {
-    name: "Student Detail",
-    route: "student-detail",
-    // icon: <BiPencil />,
-  },
-  {
-    name: "Student Form",
-    route: "student-form",
     // icon: <BiPencil />,
   },
   {
@@ -76,15 +61,13 @@ export default function InstituteDashboard() {
       RouteContent={
         <Routes>
           <Route path="" element={<CourseList />} />
-          <Route path="course-form" element={<CourseForm />} />
           <Route
             path="registration-control"
             element={<RegistrationControl />}
           />
           <Route path="result" element={<Result />} />
           <Route path="student-list" element={<StudentList />} />
-          <Route path="student-detail" element={<StudentDetail />} />
-          <Route path="student-form" element={<StudentForm />} />
+          <Route path="student-list/:id" element={<StudentDetail />} />
           <Route path="quiz" element={<Quiz />} />
           <Route path="add-quiz" element={<AddQuiz />} />
           <Route path="*" element={<NotFound />} />

@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import InputField from "../../../components/input/input-field";
 import Button from "../../../components/button/primary-button";
 import DropDown from "../../../components/input/dropdown";
 import MenuItem from "@mui/material/MenuItem";
-import { fbAdd } from "../../../config/firebase/firebase-methods";
+import { fbAdd, fbGet } from "../../../config/firebase/firebase-methods";
 import DatePickerValue from "../../../components/date-picker";
 import SwitchLabels from "../../../components/switch";
 
@@ -11,15 +11,16 @@ export default function StudentForm() {
   const [model, setModel] = useState<any>({});
   const [maleChecked, setMaleChecked] = useState(false);
   const [femaleChecked, setFemaleChecked] = useState(false);
+  const [courseList, setCourseList] = useState<any>([]);
 
   const handleMaleChange = () => {
     setMaleChecked(!maleChecked);
-    setFemaleChecked(!femaleChecked);
+    setFemaleChecked(false);
   };
 
   const handleFemaleChange = () => {
     setFemaleChecked(!femaleChecked);
-    setMaleChecked(!maleChecked);
+    setMaleChecked(false);
   };
 
   const fillModel = (key: string, val: any) => {
@@ -42,19 +43,27 @@ export default function StudentForm() {
       });
   };
 
+  const GetcourseList = () => {
+    fbGet("courseList")
+      .then((res: any) => {
+        console.log("Fetched User Data:", { ...res });
+        setCourseList([...res]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    GetcourseList();
+  }, []);
+
   const Qualfication = [
     { value: "matric", label: "Matric" },
     { value: "Intermediate", label: "Intermediate" },
     { value: "bachelor", label: "Bachelor" },
     { value: "master", label: "Master" },
     { value: "mphil", label: "Mphil" },
-  ];
-
-  const Cource = [
-    { value: "school", label: "School" },
-    { value: "college", label: "College" },
-    { value: "university", label: "University" },
-    { value: "institute", label: "Institute" },
   ];
 
   const Section = [
@@ -131,15 +140,17 @@ export default function StudentForm() {
           </DropDown>
 
           <DropDown
-            HeaderValue="Cource"
-            SelectValue={model.cource || ""}
-            SelectOnChange={(e: any) => fillModel("cource", e.target.value)}
+            HeaderValue="Course"
+            SelectValue={model.course || ""}
+            SelectOnChange={(e: any) => fillModel("course", e.target.value)}
           >
-            {Cource.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
+            {courseList && courseList.length > 0
+              ? courseList.map((course: any, i: number) => (
+                  <MenuItem key={i} value={course.courseName}>
+                    {course.courseName}
+                  </MenuItem>
+                ))
+              : null}
           </DropDown>
 
           <InputField
@@ -197,12 +208,11 @@ export default function StudentForm() {
             ))}
           </DropDown>
 
-            <InputField
+          <InputField
             value={model.address || ""}
             onChange={(e: any) => fillModel("address", e.target.value)}
             label="Address"
           />
-
         </div>
         <div className="grid col-span-1  md:grid-cols-4 flex items-center justify-center  gap-2 ">
           <div className="grid col-span-1">
