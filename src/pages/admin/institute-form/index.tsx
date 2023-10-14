@@ -4,7 +4,7 @@ import DropDown from "../../../components/input/dropdown";
 import MenuItem from "@mui/material/MenuItem";
 import FileUpload from "../../../components/input/file-input";
 import Button from "../../../components/button/primary-button";
-import { fbAdd } from "../../../config/firebase/firebase-methods";
+import { fbAdd, uploadImage } from "../../../config/firebase/firebase-methods";
 
 export default function InstituteForm() {
   const [institutemodel, setInstituteModel] = useState<any>({});
@@ -50,8 +50,32 @@ export default function InstituteForm() {
       });
   };
 
+  // const handleImageUpload = (file: any) => {
+  //   const imageName = "unique_image_name.jpg"; 
   
-
+  //   uploadImage(file, imageName)
+  //     .then((imageUrl) => {
+  //       setInstituteModel({ ...institutemodel, instituteLogo: imageUrl });
+  //     })
+  //     .catch((error) => {
+  //       // Handle the error
+  //       console.error("Image upload failed: ", error);
+  //     });
+  // };
+  
+ 
+  const handleImageUpload = (file: any) => {
+    const imageName = "unique_image_name.jpg"; 
+  
+    uploadImage(file, imageName)
+      .then((imageUrl) => {
+        fillinstituteModel("instituteLogo", imageUrl);
+      })
+      .catch((error) => {
+        // Handle the error
+        console.error("Image upload failed: ", error);
+      });
+  };
 
 
 
@@ -61,9 +85,7 @@ export default function InstituteForm() {
         <div className="col-span-1 lg:col-span-3 ">
           <FileUpload
             value={institutemodel.instituteLogo || ""}
-            onChange={(e: any) =>
-              fillinstituteModel("instituteLogo", e.target.value)
-            }
+            onChange={handleImageUpload}
           />
         </div>
 

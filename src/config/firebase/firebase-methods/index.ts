@@ -6,10 +6,12 @@ import {
   signOut,
 } from "firebase/auth";
 import { getDatabase, ref, set, onValue, push } from "firebase/database";
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
 import { app } from "../firebase-config";
 
 let auth = getAuth(app);
 let db = getDatabase(app);
+let storage = getStorage(app);
 
 export let fbLogin = (body: any) => {
   return new Promise((resolve, reject) => {
@@ -133,6 +135,23 @@ export let fbAddUser = (body: any) => {
 export let fbSignout = () => {
   return signOut(auth);
 };
+export const uploadImage = (file: any, imageName: any) => {
+  return new Promise(async (resolve, reject) => {
+    const storageReference = storageRef(storage, `images/${imageName}`);
+    try {
+      // Upload the image to Firebase Storage
+      const snapshot = await uploadBytes(storageReference, file);
+
+      // Get the download URL of the uploaded image
+      const downloadURL = await getDownloadURL(snapshot.ref);
+
+      resolve(downloadURL);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 
 export let fbDelete = () => {};
 export let fbEdit = () => {};
