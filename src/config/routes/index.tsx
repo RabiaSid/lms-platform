@@ -18,6 +18,7 @@ export default function AppRouter() {
           <Route path="institute-dashboard/*" element={<InstituteDashboard />} />
           <Route path="student-dashboard/*" element={<StudentDashboard />} />
           <Route path="*" element={< NotFound />} />
+          {/* <Route path="/:ints/registration" element={< RegistrationForm />} />  // add short name here /: inst*/} 
         </Routes>
       </Router>
     </>

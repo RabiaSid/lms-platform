@@ -6,12 +6,14 @@ import MenuItem from "@mui/material/MenuItem";
 import { fbAdd, fbGet } from "../../../config/firebase/firebase-methods";
 import DatePickerValue from "../../../components/date-picker";
 import SwitchLabels from "../../../components/switch";
+import { useNavigate } from "react-router-dom";
 
 export default function StudentForm() {
   const [model, setModel] = useState<any>({});
   const [maleChecked, setMaleChecked] = useState(false);
   const [femaleChecked, setFemaleChecked] = useState(false);
   const [courseList, setCourseList] = useState<any>([]);
+  const navigate = useNavigate();
 
   const handleMaleChange = () => {
     setMaleChecked(!maleChecked);
@@ -37,11 +39,26 @@ export default function StudentForm() {
         setModel({
           ...setModel,
         });
+        // navigate(`${id}`);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+  // let StudentAdd = () => {
+  //   setModel({});
+  //   console.log(model);
+  //   fbAdd("studentList", model)
+  //     .then((res: any) => {
+  //       console.log(res);
+  //       setModel({
+  //         ...setModel,
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   const GetcourseList = () => {
     fbGet("courseList")

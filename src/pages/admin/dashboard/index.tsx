@@ -37,6 +37,7 @@ export default function AdminDashboard() {
           <Route path="" element={<Institute />} />
           <Route path="user-registration" element={<UserRegistration />} />
           <Route path="*" element={<NotFound />} />
+          {/* <Route path="registraform/:id" element={<NotFound />} /> //*/}
         </Routes>
       }
       userName={userData.userName}

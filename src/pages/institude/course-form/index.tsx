@@ -23,6 +23,7 @@ export default function CourseForm() {
         setModel({
           ...setModel,
         });
+        
       })
       .catch((err) => {
         console.log(err);

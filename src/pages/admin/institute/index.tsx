@@ -62,7 +62,7 @@ export default function Institute() {
                 key={i}
                 column1={i}
                 // instituteLogo={institute.instituteLogo}
-                column2="-"
+                column2={<img src={institute.logoImage} width="40px" />}
                 column3={institute.instituteName}
                 column4={institute.numberOfCampus}
                 column5="yes"

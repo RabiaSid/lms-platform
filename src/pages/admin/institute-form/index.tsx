@@ -4,18 +4,30 @@ import DropDown from "../../../components/input/dropdown";
 import MenuItem from "@mui/material/MenuItem";
 import FileUpload from "../../../components/input/file-input";
 import Button from "../../../components/button/primary-button";
-import { fbAdd, uploadImage } from "../../../config/firebase/firebase-methods";
+import { fbAdd } from "../../../config/firebase/firebase-methods";
+import { imgDB } from "../../../config/firebase/firebase-methods";
+import { v4 } from "uuid";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export default function InstituteForm() {
-  const [institutemodel, setInstituteModel] = useState<any>({});
+  const [institutemodel, setInstituteModel] = useState<any>({
+    logoImage: {},
+    instituteName: "",
+    instituteShortName: "",
+    numberOfCampus: "",
+    ownerEmail: "",
+    ownerContact: "",
+    location: "",
+    address: "",
+    contact: "",
+    institutemodel: "",
+  });
   const [campusModel, setCampusModel] = useState<any>({});
   const [campusDetailModel, setCampusDetailModel] = useState<any>([]);
-
 
   const fillinstituteModel = (key: string, val: any) => {
     institutemodel[key] = val;
     setInstituteModel({ ...institutemodel });
-    
   };
 
   const fillCampusModel = (key: string, val: any) => {
@@ -30,19 +42,18 @@ export default function InstituteForm() {
     { value: "institute", label: "Institute" },
   ];
 
-
   const AddInstitute = () => {
-    institutemodel.campusModel = {...campusModel};
+    institutemodel.campusModel = { ...campusModel };
     campusDetailModel.push(campusModel);
     setCampusDetailModel([...campusDetailModel]);
-    setCampusDetailModel([])
-    setCampusModel({})
+    setCampusDetailModel([]);
+    setCampusModel({});
     console.log(institutemodel);
     fbAdd("instituteList", institutemodel)
       .then((res: any) => {
         console.log(res);
         setInstituteModel({
-          ...setInstituteModel, 
+          ...setInstituteModel,
         });
       })
       .catch((err) => {
@@ -50,48 +61,27 @@ export default function InstituteForm() {
       });
   };
 
-  // const handleImageUpload = (file: any) => {
-  //   const imageName = "unique_image_name.jpg"; 
-  
-  //   uploadImage(file, imageName)
-  //     .then((imageUrl) => {
-  //       setInstituteModel({ ...institutemodel, instituteLogo: imageUrl });
-  //     })
-  //     .catch((error) => {
-  //       // Handle the error
-  //       console.error("Image upload failed: ", error);
-  //     });
-  // };
-  
- 
-  const handleImageUpload = (file: any) => {
-    const imageName = "unique_image_name.jpg"; 
-  
-    uploadImage(file, imageName)
-      .then((imageUrl) => {
-        fillinstituteModel("instituteLogo", imageUrl);
-      })
-      .catch((error) => {
-        // Handle the error
-        console.error("Image upload failed: ", error);
+  const handleImageUpload = (e: any) => {
+    console.log(e.target.files[0]);
+    const imgs = ref(imgDB, `Imgs/${v4()}`);
+    uploadBytes(imgs, e.target.files[0]).then((res) => {
+      console.log(res, "imgs");
+      getDownloadURL(res.ref).then((val) => {
+        console.log(val);
+        institutemodel.logoImage = val; // Set the image URL here
+        setCampusModel({ ...institutemodel });
       });
+    });
   };
-
-
 
   return (
     <>
       <div className="grid grid-cols-1 lg:grid-cols-6 gap-4 py-5">
         <div className="col-span-1 lg:col-span-3 ">
-          <FileUpload
-            value={institutemodel.instituteLogo || ""}
-            onChange={handleImageUpload}
-          />
+          <FileUpload onChange={(e) => handleImageUpload(e)} />
         </div>
 
         <div className="col-span-1 lg:col-span-3  flex flex-col justify-between">
-        
-
           <InputField
             value={institutemodel.instituteName || ""}
             onChange={(e: any) =>
@@ -155,7 +145,7 @@ export default function InstituteForm() {
             </MenuItem>
           ))}
         </DropDown>
-        <Button label="Add Institute " onClick={AddInstitute} /> 
+        <Button label="Add Institute " onClick={AddInstitute} />
       </div>
     </>
   );
