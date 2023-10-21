@@ -11,7 +11,7 @@ type DatePickerProps = {
 
 export default function DatePickerValue(props: DatePickerProps) {
   const { label } = props
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
+  const [val, setVal] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} 
@@ -22,8 +22,8 @@ export default function DatePickerValue(props: DatePickerProps) {
         //  className="ms-2 DatepickerWidth w-full"
          className="p-3 border-2 border-cyan-700 focus:border-cyan-300 w-full outline-none rounded my-1 "
           label={label}
-          value={value}
-          onChange={(newValue) => setValue(newValue)}
+          value={val}
+          onChange={(newValue) => setVal(newValue)}
         
         />
       </DemoContainer>

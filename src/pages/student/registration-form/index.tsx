@@ -6,24 +6,25 @@ import MenuItem from "@mui/material/MenuItem";
 import { fbAdd, fbGet } from "../../../config/firebase/firebase-methods";
 import DatePickerValue from "../../../components/date-picker";
 import SwitchLabels from "../../../components/switch";
+import CheckboxLabels from "../../../components/check-box";
 
 export default function StudentForm() {
-  const [model, setModel] = useState<any>({});
+  const [model, setModel] = useState<any>({
+    gender: '',
+  });
   const [maleChecked, setMaleChecked] = useState(false);
   const [femaleChecked, setFemaleChecked] = useState(false);
   const [courseList, setCourseList] = useState<any>([]);
 
-  const handleMaleChange = () => {
-    setMaleChecked(!maleChecked);
-    setFemaleChecked(false);
-    // (e: any) => fillModel("genderMale", e.target.value)
+  const handleGenderChange = (event: any) => {
+    const selectedGender = event.target.value; // Get the value (male or female) from the radio button
+    setModel((prevModel: any) => ({
+      ...prevModel,
+      gender: selectedGender, // Update the gender field in the state
+    }));
   };
 
-  const handleFemaleChange = () => {
-    setFemaleChecked(!femaleChecked);
-    setMaleChecked(false);
-    // (e: any) => fillModel("gender", e.target.value)
-  };
+
 
   const fillModel = (key: string, val: any) => {
     model[key] = val;
@@ -236,23 +237,45 @@ export default function StudentForm() {
           />
         </div>
         <div className="grid col-span-1  md:grid-cols-4 flex items-center justify-center  gap-2 ">
-          <div className="grid col-span-1">
-            <SwitchLabels
+          <div className="">
+            <CheckboxLabels
+              id="male"
+              name="gender"
+              value="male"
+              label="male"
+              checked={model.gender === 'male' || maleChecked}
+            onChange={handleGenderChange}
+              // checked={maleChecked}
+              // onChange={handleMaleChange}
+            />
+            {/* <SwitchLabels
               label="male"
               checked={maleChecked}
               onChange={handleMaleChange}
               // value={model.genter || ""}
+            /> */}
+            <CheckboxLabels
+              id="female"
+              name="gender"
+              value="female"
+              label="female"
+              // checked={model.gender === 'female'}
+              onChange={handleGenderChange}
+              checked={model.gender === 'female' || femaleChecked }
+              // onChange={handleFemaleChange}
             />
-            <SwitchLabels
+            {/* <SwitchLabels
               label="female"
               checked={femaleChecked}
               onChange={handleFemaleChange}
               // value={model.gender || ""}
-            />
+            /> */}
           </div>
         </div>
         <div className="grid col-span-1  md:grid-cols-4 flex items-center justify-center  gap-2 ">
-          <DatePickerValue label="Date Of Birth" />
+          <DatePickerValue
+            label="Date Of Birth"
+          />
         </div>
 
         <div className="grid col-span-1  md:grid-cols-4 flex items-center justify-center  gap-2 ">

@@ -9,9 +9,11 @@ import { getDatabase, ref, set, onValue, push } from "firebase/database";
 import { app } from "../firebase-config";
 import { getStorage } from "firebase/storage"
 
+
+
 let auth = getAuth(app);
 let db = getDatabase(app);
-const imgDB = getStorage(app)
+let imgDB = getStorage(app)
 
 export let fbLogin = (body: any) => {
   return new Promise((resolve, reject) => {
@@ -136,6 +138,8 @@ export let fbSignout = () => {
   return signOut(auth);
 };
 export {imgDB};
+
+
 
 
 export let fbDelete = () => {};

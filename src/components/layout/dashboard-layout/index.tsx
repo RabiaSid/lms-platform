@@ -34,10 +34,10 @@ export default function DashboardLayout(props: DashboardLayoutProps) {
       </div>
       <div className="grid grid-cols-7 md:grid-cols-5 h-[92%]">
         <div className="grid grid-rows-5 grid-flow-col bg-[#000000] p-5">
-          <div className="row-span-4  h-[95%] justify-start">
+          <div className="row-span-4  h-[96%] justify-start">
             {children}
           </div>
-          <div className="row-span-1 h-[5%] items-end  justify-end ">
+          <div className="row-span-1 h-[4%] items-end  justify-end ">
             <Button label="Sign out" onClick={SignOut} />
           </div>
         </div>
