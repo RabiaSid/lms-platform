@@ -73,18 +73,6 @@ export default function InstituteForm() {
       });
     });
   };
-  // const handleImageUpload = (e: any) => {
-  //   console.log(e.target.files[0]);
-  //   const imgs = ref(imgDB, `Imgs/${v4()}`);
-  //   uploadBytes(imgs, e.target.files[0]).then((res) => {
-  //     console.log(res, "imgs");
-  //     getDownloadURL(res.ref).then((val) => {
-  //       console.log(val);
-  //       institutemodel.logoImage = val; // Set the image URL here
-  //       setCampusModel({ ...institutemodel });
-  //     });
-  //   });
-  // };
 
   return (
     <>
